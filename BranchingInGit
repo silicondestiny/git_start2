@@ -1,0 +1,191 @@
+#!/opt/ActivePerl-5.20/bin/perl
+no warnings;
+use Cwd;
+
+my $topHead =    "################## SOFTWARE DEV GIT UNDO THINGS ####################\n";
+my $bottomHead = "##############################################################################################################\n";
+
+my $STEP1 = <<"THERE1";
+
+**************************************************************************************
+**************************************************************************************
+############################ CREATING NEW BRANCH  BEGIN ##############################################
+
+#####
+#####    STEP 1.1: In project directory where vscode is started,
+#####       
+#####       --> git log --oneline
+#####            Make sure you are working on the master branch
+#####             If not git checkout master
+
+#####    STEP 1.2: Create a new branch
+#####       --> git branch <branch-NAME>
+
+#####       --> git branch
+andrewa\@devA:~/bin_dev/git_start$ git branch
+  FEATURE-1
+* master
+#####           This is to check if you have created the new branch
+
+
+############################ CREATING NEW BRANCH  END ################################################
+**************************************************************************************
+**************************************************************************************
+
+THERE1
+my $STEP2 = <<"THERE2";
+
+**************************************************************************************
+**************************************************************************************
+############################ SWITCHING BETWEEN BRANCHES IN GIT BEGIN ##############################################
+#####     
+
+#####    STEP 1.2: To switch to a different branch
+#####       --> git log --oneline
+#####       
+#####       --> git checkout FEATURE-1
+Switched to branch 'FEATURE-1'
+#####
+#####       --> git checkout FEATURE-1
+31c0ebf (HEAD -> FEATURE-1, origin/master)      
+new file:   NewGitProjectSetupCommits   new file:   UndoThingsInGit     new file:   git-commands-summary
+#####
+#####       You are now working in a different branch which may require
+#####       merging to the master or other branches selection
+
+############################ SWITCHING BETWEEN BRANCHES IN GIT END ################################################
+**************************************************************************************
+**************************************************************************************
+
+THERE2
+my $STEP3 = <<"THERE3";
+
+**************************************************************************************
+**************************************************************************************
+############################ CREATING A NEW BRANCH & SWITCHING SHORTCUT BEGIN ##############################################
+
+#####    STEP 1.3: To create a new branch and swithcing to it: do the following:
+#####       
+#####       --> git checkout -b FEATURE-2
+Switched to a new branch 'FEATURE-2'
+#####       --> git log --oneline
+ec8b2c1 (HEAD -> FEATURE-2, master) UndoThingsInGit mods
+31c0ebf (origin/master, FEATURE-1)      new file:   NewGitProjectSetupCommits   
+#####
+#####       
+############################ CREATING A NEW BRANCH & SWITCHING SHORTCUT END ################################################
+**************************************************************************************
+**************************************************************************************
+
+THERE3
+my $STEP4 = <<"THERE4";
+
+**************************************************************************************
+**************************************************************************************
+############################ STEP BEGIN ##############################################
+
+#####    STEP 1.4.1: To revert files from master version
+#####
+#####       --> git revert commitID
+#####
+#####        CommitEditFile is opened for edit, close the file to continue
+#####       
+#####     This will unstage modified files from previouse versions
+#####         for further project work.  Please avoid using this command
+
+#####    STEP 1.4.1: To delete previous commit versions
+#####
+#####       --> git reset --mixed
+#####       --> git reset --soft
+#####       --> git reset --hard
+#####
+#####       This will delete or move the master version to the committed version specified
+#####         Avoid using this command before understanding all implications
+
+############################ STEP END ################################################
+**************************************************************************************
+**************************************************************************************
+
+THERE4
+my $STEP5 = <<"THERE5";
+
+**************************************************************************************
+**************************************************************************************
+############################ STEP BEGIN ##############################################
+
+#####    STEP 1.5.1: Short cut for git add . and git commit
+#####       --> git commit -am "Commit COMMENTS HERE"
+#####     
+############################ STEP END ################################################
+**************************************************************************************
+**************************************************************************************
+
+THERE5
+
+if (!@ARGV) { print "\t-info- Usage: Step1_Chap1-2-28-up-to-SignupForm options: \n\t\tall, \n\t\t1..$MAXSTEP\n"; exit; }
+my $SIGNUPALL = join "\n\n\n", 
+  $STEP1, $STEP2,
+  $STEP3, $STEP4,
+  $STEP5;
+
+my $MAXSTEP = 5;
+
+if (lc $ARGV[0] eq 'all') { 
+     PrintSTEP($SIGNUPALL)
+}
+elsif ($ARGV[0] eq '1' ) { 
+    GotoStep($STEP1, $ARGV[0]);
+}
+elsif ($ARGV[0] eq '2' ) { 
+    GotoStep($STEP2, $ARGV[0]);
+}
+elsif ($ARGV[0] eq '3' ) { 
+    GotoStep($STEP3, $ARGV[0]);
+}
+elsif ($ARGV[0] eq '4' ) { 
+    GotoStep($STEP4, $ARGV[0]);
+}
+elsif ($ARGV[0] eq '5' ) { 
+    GotoStep($STEP5, $ARGV[0]);
+}
+else {
+    print "\t-info- Usage: Step0-Create-new-project-w-git options: $ARGV[0] is invalid\n"; exit; 
+}
+
+sub PrintSTEP {
+    my $STEP = shift;
+    print "\n\n\n";
+    print "$bottomHead";
+    print "$topHead";
+    print "$topHead";
+    print "$topHead";
+    print "$bottomHead";
+    print $STEP;
+    print "$bottomHead";
+    print "\n";
+}
+
+sub GotoStep {
+  my $STEP = shift;
+  my $argv = shift;
+  PrintSTEP($STEP);
+  while(1) {
+    $argv++;
+    if ($argv <= $MAXSTEP) {
+      print "Next Step = $argv, Continue(n/Y)? ";
+      my $ans = 'n';
+      $_ = <STDIN>;
+      chomp;
+      if ($_=~/y/i | $_ eq '') { $ans = 'y'; } 
+      if ($ans =~ /y/i) {
+        if($argv==2) { $STEP = $STEP2; PrintSTEP($STEP); }
+        elsif($argv==3) { $STEP = $STEP3; PrintSTEP($STEP); }
+        elsif($argv==4) { $STEP = $STEP4; PrintSTEP($STEP); }
+        elsif($argv==5) { $STEP = $STEP5; PrintSTEP($STEP); }
+        else { exit; }
+      }
+      else { exit; }
+    }
+    else { exit; }
+  }
+}
