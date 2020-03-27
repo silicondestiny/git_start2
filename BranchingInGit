@@ -82,33 +82,19 @@ my $STEP4 = <<"THERE4";
 
 **************************************************************************************
 **************************************************************************************
-############################ STEP BEGIN ##############################################
+############################ DELETING A BRANCH STEP BEGIN ##############################################
 
-#####    STEP 1.4.1: To revert files from master version
+#####    STEP 1.4.1: To delete branch
+#####       Make sure you are not working on the branch that you are deleting
 #####
-#####       --> git revert commitID
+#####       --> git branch -D <BRANCH-NAME>
 #####
-#####        CommitEditFile is opened for edit, close the file to continue
-#####       
-#####     This will unstage modified files from previouse versions
-#####         for further project work.  Please avoid using this command
-
-#####    STEP 1.4.1: To delete previous commit versions
-#####
-#####       --> git reset --mixed
-#####       --> git reset --soft
-#####       --> git reset --hard
-#####
-#####       This will delete or move the master version to the committed version specified
-#####         Avoid using this command before understanding all implications
-
 ############################ STEP END ################################################
 **************************************************************************************
 **************************************************************************************
 
 THERE4
 my $STEP5 = <<"THERE5";
-
 **************************************************************************************
 **************************************************************************************
 ############################ STEP BEGIN ##############################################
@@ -116,12 +102,23 @@ my $STEP5 = <<"THERE5";
 #####    STEP 1.5.1: Short cut for git add . and git commit
 #####       --> git commit -am "Commit COMMENTS HERE"
 #####     
-############################ STEP END ################################################
+############################ DELETING A BRANCH STEP END ################################################
 **************************************************************************************
 **************************************************************************************
-
 THERE5
+my $STEP6 = <<"THERE6";
+**************************************************************************************
+**************************************************************************************
+############################ MERGING A BRANCH BEGIN ##############################################
 
+#####    STEP 1.6.1: Ensure that you are working in the correct branch you want
+#####         to merge with another. master branch usually gets merged with.
+#####       --> git merge <BRANCH-NAME>
+#####     
+############################ MERGING A BRANCH STEP END ################################################
+**************************************************************************************
+**************************************************************************************
+THERE6
 if (!@ARGV) { print "\t-info- Usage: Step1_Chap1-2-28-up-to-SignupForm options: \n\t\tall, \n\t\t1..$MAXSTEP\n"; exit; }
 my $SIGNUPALL = join "\n\n\n", 
   $STEP1, $STEP2,
