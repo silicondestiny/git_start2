@@ -1,0 +1,276 @@
+#!/opt/ActivePerl-5.20/bin/perl
+no warnings;
+use Cwd;
+
+my $topHead =    "################## SOFTWARE DEV GIT UNDO THINGS ####################\n";
+my $bottomHead = "##############################################################################################################\n";
+
+my $STEP1 = <<"THERE1";
+
+**************************************************************************************
+**************************************************************************************
+############################ SHOW COMMIT INFO BEGIN ##############################################
+
+#####
+#####    STEP 1.1: In project directory where vscode is started,
+#####       To show detailed information on the last commit do following:
+#####       --> git show HEAD
+#####           Or
+#####       --> git show HEAD~0
+#####           Or
+#####       --> git show f52cc82
+#####       In vim mode:
+commit 3b447f716f8c46bb41948935e7e72c023e45bfa0 (HEAD -> master)
+Author: andya <andrewawebdev\@gmail.com>
+Date:   Thu Mar 26 10:48:13 2020 -0700
+
+    Test commits on vscode comment editing
+
+diff --git a/Step0-Create-new-project-w-git b/Step0-Create-new-project-w-git
+new file mode 100755
+index 0000000..fad5793
+--- /dev/null
++++ b/Step0-Create-new-project-w-git
+@@ -0,0 +1,321 @@
+
+#####    STEP 1.2: In project directory where vscode is started,
+#####       To show detailed information on the second commit do following:
+#####       --> git show HEAD~1
+#####           Or
+#####       --> git show 3b447f7
+
+############################ SHOW COMMIT INFO END ################################################
+**************************************************************************************
+**************************************************************************************
+
+THERE1
+my $STEP2 = <<"THERE2";
+
+**************************************************************************************
+**************************************************************************************
+############################ UNDO THINGS IN GIT BEGIN ##############################################
+#####     This only work in the master branch
+
+#####    STEP 1.2: To undo specific files from current branch or workspace
+#####       --> git status
+#####       
+#####     The file you want to undo back to previous commits, do the following:
+#####       --> git checkout FILENAME
+#####
+#####       This will bring the committed version and replace FILENAME
+#####       undoing all the changes in the file
+#####
+#####       --> git checkout .
+#####       This will bring the committed version and replace all files
+#####       undoing all the changes in the files
+
+
+############################ UNDO THINGS IN GIT END ################################################
+**************************************************************************************
+**************************************************************************************
+
+THERE2
+my $STEP3 = <<"THERE3";
+
+**************************************************************************************
+**************************************************************************************
+############################ VIEW READ ONLY PREVIOUS COMMIT VERSIONS BEGIN ##############################################
+
+#####    STEP 1.3: To show commit history do the following:
+#####       
+#####       --> git log --oneline
+
+#####       --> git checkout commitID
+#####
+#####       
+#####        This will bring all the files in a previously committed versions
+#####         Any changes done in these section is not saved. It is read only
+
+############################ VIEW READ ONLY PREVIOUS COMMIT VERSIONS END ################################################
+**************************************************************************************
+**************************************************************************************
+
+THERE3
+my $STEP4 = <<"THERE4";
+
+**************************************************************************************
+**************************************************************************************
+############################ STEP BEGIN ##############################################
+
+#####    STEP 1.4.1: To revert files from master version
+#####
+#####       --> git revert commitID
+#####
+#####        CommitEditFile is opened for edit, close the file to continue
+#####       
+#####     This will unstage modified files from previouse versions
+#####         for further project work.  Please avoid using this command
+
+#####    STEP 1.4.1: To delete previous commit versions
+#####
+#####       --> git reset --mixed
+#####       --> git reset --soft
+#####       --> git reset --hard
+#####
+#####       This will delete or move the master version to the committed version specified
+#####         Avoid using this command before understanding all implications
+
+############################ STEP END ################################################
+**************************************************************************************
+**************************************************************************************
+
+THERE4
+my $STEP5 = <<"THERE5";
+
+**************************************************************************************
+**************************************************************************************
+############################ STEP BEGIN ##############################################
+
+#####    STEP 1.5.1: First commit new project to repository
+#####       --> git commit -m
+#####     
+#####       vscode opens commit messages and close the file
+#####
+#####    STEP 1.5.2: If 1.5.1 was not followed:
+#####       First commit new project to repository
+#####       --> git commit -m "Initial commit"
+#####      
+On branch master
+
+Initial commit
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+        .editorconfig
+        .gitignore
+        README.md
+        angular.json
+        browserslist
+        e2e/
+        junk.ts
+        karma.conf.js
+        package-lock.json
+        package.json
+        src/
+        tsconfig.app.json
+        tsconfig.json
+        tsconfig.spec.json
+        tslint.json
+
+nothing added to commit but untracked files present (use "git add" to track)
+
+############################ STEP END ################################################
+**************************************************************************************
+**************************************************************************************
+
+THERE5
+my $STEP6 = <<"THERE6";
+
+**************************************************************************************
+**************************************************************************************
+############################ STEP BEGIN ##############################################
+
+#####    STEP 1.6: Check git status
+#####       --> git status
+On branch master
+nothing to commit, working tree clean
+
+############################ STEP END ################################################
+**************************************************************************************
+**************************************************************************************
+
+THERE6
+my $STEP7 = <<"THERE7";
+
+**************************************************************************************
+**************************************************************************************
+############################ STEP BEGIN ##############################################
+
+#####    STEP 1.7: Check history
+#####       --> git log
+commit 4bf59f1ee430aa26c4a925e96f99265861845c92 (HEAD -> master)
+Author: andya <andrewawebdev\@gmail.com>
+Date:   Wed Mar 25 16:35:08 2020 -0700
+
+#####    STEP 1.7: Check history concise version
+#####       --> git log --oneline
+4bf59f1 (HEAD -> master) Initial commit
+
+############################ STEP END ################################################
+**************************************************************************************
+**************************************************************************************
+
+THERE7
+
+
+if (!@ARGV) { print "\t-info- Usage: Step1_Chap1-2-28-up-to-SignupForm options: \n\t\tall, \n\t\t1..$MAXSTEP\n"; exit; }
+my $SIGNUPALL = join "\n\n\n", 
+  $STEP1, $STEP2,
+  $STEP3, $STEP4,
+  $STEP5, $STEP6;
+
+my $MAXSTEP = 6;
+
+if (lc $ARGV[0] eq 'all') { 
+     PrintSTEP($SIGNUPALL)
+}
+elsif ($ARGV[0] eq '1' ) { 
+    GotoStep($STEP1, $ARGV[0]);
+}
+elsif ($ARGV[0] eq '2' ) { 
+    GotoStep($STEP2, $ARGV[0]);
+}
+elsif ($ARGV[0] eq '3' ) { 
+    GotoStep($STEP3, $ARGV[0]);
+}
+elsif ($ARGV[0] eq '4' ) { 
+    GotoStep($STEP4, $ARGV[0]);
+}
+elsif ($ARGV[0] eq '5' ) { 
+    GotoStep($STEP5, $ARGV[0]);
+}
+elsif ($ARGV[0] eq '6' ) { 
+    GotoStep($STEP6, $ARGV[0]);
+}
+else {
+    print "\t-info- Usage: Step0-Create-new-project-w-git options: $ARGV[0] is invalid\n"; exit; 
+}
+
+sub PrintSTEP {
+    my $STEP = shift;
+    print "\n\n\n";
+    print "$bottomHead";
+    print "$topHead";
+    print "$topHead";
+    print "$topHead";
+    print "$bottomHead";
+    print $STEP;
+    print "$bottomHead";
+    print "\n";
+}
+
+sub GotoStep {
+  my $STEP = shift;
+  my $argv = shift;
+  PrintSTEP($STEP);
+  while(1) {
+    $argv++;
+    if ($argv <= $MAXSTEP) {
+      print "Next Step = $argv, Continue(n/Y)? ";
+      my $ans = 'n';
+      $_ = <STDIN>;
+      chomp;
+      if ($_=~/y/i | $_ eq '') { $ans = 'y'; } 
+      if ($ans =~ /y/i) {
+        if($argv==2) { $STEP = $STEP2; PrintSTEP($STEP); }
+        elsif($argv==3) { $STEP = $STEP3; PrintSTEP($STEP); }
+        elsif($argv==4) { $STEP = $STEP4; PrintSTEP($STEP); }
+        elsif($argv==5) { $STEP = $STEP5; PrintSTEP($STEP); }
+        elsif($argv==6) { $STEP = $STEP6; PrintSTEP($STEP); }
+        else { exit; }
+      }
+      else { exit; }
+    }
+    else { exit; }
+  }
+}
