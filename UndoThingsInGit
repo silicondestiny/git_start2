@@ -126,90 +126,22 @@ my $STEP5 = <<"THERE5";
 **************************************************************************************
 ############################ STEP BEGIN ##############################################
 
-#####    STEP 1.5.1: First commit new project to repository
-#####       --> git commit -m
+#####    STEP 1.5.1: Short cut for git add . and git commit
+#####       --> git commit -am "Commit COMMENTS HERE"
 #####     
-#####       vscode opens commit messages and close the file
-#####
-#####    STEP 1.5.2: If 1.5.1 was not followed:
-#####       First commit new project to repository
-#####       --> git commit -m "Initial commit"
-#####      
-On branch master
-
-Initial commit
-
-Untracked files:
-  (use "git add <file>..." to include in what will be committed)
-        .editorconfig
-        .gitignore
-        README.md
-        angular.json
-        browserslist
-        e2e/
-        junk.ts
-        karma.conf.js
-        package-lock.json
-        package.json
-        src/
-        tsconfig.app.json
-        tsconfig.json
-        tsconfig.spec.json
-        tslint.json
-
-nothing added to commit but untracked files present (use "git add" to track)
-
 ############################ STEP END ################################################
 **************************************************************************************
 **************************************************************************************
 
 THERE5
-my $STEP6 = <<"THERE6";
-
-**************************************************************************************
-**************************************************************************************
-############################ STEP BEGIN ##############################################
-
-#####    STEP 1.6: Check git status
-#####       --> git status
-On branch master
-nothing to commit, working tree clean
-
-############################ STEP END ################################################
-**************************************************************************************
-**************************************************************************************
-
-THERE6
-my $STEP7 = <<"THERE7";
-
-**************************************************************************************
-**************************************************************************************
-############################ STEP BEGIN ##############################################
-
-#####    STEP 1.7: Check history
-#####       --> git log
-commit 4bf59f1ee430aa26c4a925e96f99265861845c92 (HEAD -> master)
-Author: andya <andrewawebdev\@gmail.com>
-Date:   Wed Mar 25 16:35:08 2020 -0700
-
-#####    STEP 1.7: Check history concise version
-#####       --> git log --oneline
-4bf59f1 (HEAD -> master) Initial commit
-
-############################ STEP END ################################################
-**************************************************************************************
-**************************************************************************************
-
-THERE7
-
 
 if (!@ARGV) { print "\t-info- Usage: Step1_Chap1-2-28-up-to-SignupForm options: \n\t\tall, \n\t\t1..$MAXSTEP\n"; exit; }
 my $SIGNUPALL = join "\n\n\n", 
   $STEP1, $STEP2,
   $STEP3, $STEP4,
-  $STEP5, $STEP6;
+  $STEP5;
 
-my $MAXSTEP = 6;
+my $MAXSTEP = 5;
 
 if (lc $ARGV[0] eq 'all') { 
      PrintSTEP($SIGNUPALL)
@@ -228,9 +160,6 @@ elsif ($ARGV[0] eq '4' ) {
 }
 elsif ($ARGV[0] eq '5' ) { 
     GotoStep($STEP5, $ARGV[0]);
-}
-elsif ($ARGV[0] eq '6' ) { 
-    GotoStep($STEP6, $ARGV[0]);
 }
 else {
     print "\t-info- Usage: Step0-Create-new-project-w-git options: $ARGV[0] is invalid\n"; exit; 
@@ -266,7 +195,6 @@ sub GotoStep {
         elsif($argv==3) { $STEP = $STEP3; PrintSTEP($STEP); }
         elsif($argv==4) { $STEP = $STEP4; PrintSTEP($STEP); }
         elsif($argv==5) { $STEP = $STEP5; PrintSTEP($STEP); }
-        elsif($argv==6) { $STEP = $STEP6; PrintSTEP($STEP); }
         else { exit; }
       }
       else { exit; }
